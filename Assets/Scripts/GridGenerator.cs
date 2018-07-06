@@ -6,6 +6,8 @@ public class GridGenerator : MonoBehaviour {
 	public int xSize, ySize;
 	private Vector3[] vertices;
 	private Vector2[] uv;
+	private Vector4[] tangents;
+
 	private Mesh mesh;
 	int[] triangles;
 
@@ -26,6 +28,8 @@ public class GridGenerator : MonoBehaviour {
 
 		vertices = new Vector3[(xSize + 1) * (ySize + 1)];
 		uv = new Vector2[vertices.Length];
+		tangents = new Vector4[vertices.Length];
+		Vector4 tangent = new Vector4 (1f, 0f, 0f, -1f);
 		mesh.Clear ();
 
 
@@ -33,12 +37,14 @@ public class GridGenerator : MonoBehaviour {
 			for (int x = 0; x <= xSize; x++, i++) {
 				vertices [i] = new Vector3 (x, y, 0);
 				uv [i] = new Vector2 ((float)x / xSize, (float)y / ySize);
+				tangents [i] = tangent;
 
 			}
 		}
 
 		mesh.vertices = vertices;
 		mesh.uv = uv;
+		mesh.tangents = tangents;
 
 		triangles = new int[xSize * 6 * ySize];
 //		Mesh Generation in bottom row
